@@ -15,7 +15,7 @@ class Connect4 {
         // make column tops (clickable area for adding a piece to that column)
         const top = document.createElement('tr');
         top.setAttribute('id', 'column-top');
-        top.addEventListener('click', this.handleClick);
+        top.addEventListener('click', (event) => this.handleClick(event))
       
         for (let x = 0; x < this.WIDTH; x++) {
           const headCell = document.createElement('td');
@@ -63,7 +63,7 @@ class Connect4 {
         const x = +evt.target.id;
       
         // get next spot in column (if none, ignore click)
-        const y = findSpotForCol(x);
+        const y = this.findSpotForCol(x);
         if (y === null) {
           return;
         }
@@ -73,7 +73,7 @@ class Connect4 {
         this.placeInTable(y, x);
         
         // check for win
-        if (checkForWin()) {
+        if (this.checkForWin()) {
           return this.endGame(`Player ${this.currPlayer} won!`);
         }
         
@@ -85,8 +85,9 @@ class Connect4 {
         // switch players
         this.currPlayer = this.currPlayer === 1 ? 2 : 1;
       };
+
       checkForWin() {
-        function _win(cells) {
+        const _win = (cells)  => {
           // Check four cells to see if they're all color of current player
           //  - cells: list of four (y, x) cells
           //  - returns true if all are legal coordinates & all match currPlayer
@@ -118,3 +119,7 @@ class Connect4 {
         }
       };
 }
+
+const newGame = new Connect4;
+newGame.makeBoard();
+newGame.makeHtmlBoard();
