@@ -120,6 +120,9 @@ class Connect4 {
       };
 }
 
-const newGame = new Connect4;
-newGame.makeBoard();
-newGame.makeHtmlBoard();
+const btn = document.querySelector('#start-game');
+btn.addEventListener('click', function(e) {
+  const newGame = new Connect4;
+  newGame.makeBoard();
+  newGame.makeHtmlBoard();
+})
